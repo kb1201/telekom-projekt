@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.catalina.connector.Response;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -46,7 +45,7 @@ public class ShipmentTrackingFilter extends HttpServlet {
 		for (var e : map.entrySet()) {
 			if (!"adress".equals(e.getKey()) && !"status".equals(e.getKey()) && !"id".equals(e.getKey())
 					&& !"createdAt".equals(e.getKey())) {
-				resp.setStatus(Response.SC_BAD_REQUEST);
+				resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 				out.flush();
 				return;
 			}
@@ -54,7 +53,7 @@ public class ShipmentTrackingFilter extends HttpServlet {
 				try {
 					Long.parseLong(e.getValue().toString());
 				}catch(NumberFormatException exc) {
-					resp.setStatus(Response.SC_BAD_REQUEST);
+					resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 					out.flush();
 					return;
 				}
@@ -64,7 +63,7 @@ public class ShipmentTrackingFilter extends HttpServlet {
 				try {
 					format.parse(e.getValue().toString());
 				} catch (ParseException e1) {
-					resp.setStatus(Response.SC_BAD_REQUEST);
+					resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 					out.flush();
 					return;
 				}

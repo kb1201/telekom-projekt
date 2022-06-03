@@ -17,8 +17,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.catalina.connector.Response;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
@@ -50,7 +48,7 @@ public class ShipmentTrackingBetween extends HttpServlet {
 		System.out.println(d2);
 		
 		if(attr == null || d1 == null || d2 == null) {
-			resp.setStatus(Response.SC_BAD_REQUEST);
+			resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			out.flush();
 			return;
 		}
@@ -64,7 +62,7 @@ public class ShipmentTrackingBetween extends HttpServlet {
 				for (var d : deliveries)
 					out.print(new Gson().toJson(d));
 			} catch (DAOException | ParseException e) {
-				resp.setStatus(Response.SC_BAD_REQUEST);
+				resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			}	
 			out.flush();
 			return;
@@ -75,14 +73,14 @@ public class ShipmentTrackingBetween extends HttpServlet {
 				for (var d : deliveries)
 					out.print(new Gson().toJson(d));
 			} catch (DAOException | NumberFormatException e) {
-				resp.setStatus(Response.SC_BAD_REQUEST);
+				resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			}	
 			out.flush();
 			return;
 		}
 		
 		if(!"adress".equals(attr) && !"status".equals(attr)) {
-			resp.setStatus(Response.SC_BAD_REQUEST);
+			resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			out.flush();
 			return;
 		}
